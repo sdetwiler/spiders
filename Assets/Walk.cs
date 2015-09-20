@@ -8,7 +8,7 @@ public class Walk : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		Debug.Log ("Walk Start");
+//		Debug.Log ("Walk Start");
 		Animation anim = gameObject.GetComponent<Animation>();
 		foreach (AnimationState state in anim) {
 			if(state.name.Equals("walk"))
@@ -24,9 +24,9 @@ public class Walk : MonoBehaviour {
 
 	void PickTarget() {
 		float s = 10.0f;
-		Debug.Log ("PickTarget");
+//		Debug.Log ("PickTarget");
 		target = new Vector3(Random.Range(-s, s), 0.0f, Random.Range(-s, s));
-		Debug.Log(target);
+//		Debug.Log(target);
 	}
 
 	void Update() {
@@ -44,7 +44,7 @@ public class Walk : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision) {
-		Debug.Log ("Collision");
+//		Debug.Log ("Collision");
 		Animation anim = gameObject.GetComponent<Animation>();
 		string attack = "attack" + Random.Range (1,2).ToString();
 		anim.Play (attack);
@@ -53,6 +53,6 @@ public class Walk : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider collider) {
-		Debug.Log ("Trigger");
+//		Debug.Log ("Trigger");
 	}
 }
