@@ -1,0 +1,67 @@
+# Ignore file from http://www.strichnet.com/using-git-with-3d-games/
+
+# =============== #
+# Unity generated #
+# =============== #
+Temp/
+Library/
+/UnitTestResults.txt
+/UnitTestResults.xml
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+obj/
+*.svd
+*.userprefs
+/*.csproj
+*.pidb
+*.suo
+/*.sln
+*.user
+*.unityproj
+*.booproj
+
+# ====== #
+# Python #
+# ====== #
+*.pyc
+*.pyc.meta
+!Assets/Scripts/Third-Party/Soomla/Editor/build-tools/*.pyc
+!Assets/Scripts/Third-Party/Soomla/Editor/build-tools/*.pyc.meta
+*.pyo
+*.pyo.meta
+
+# ====== #
+# Excel  #
+# ====== #
+~$*
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ============ #
+# iOS          #
+# ============ #
+*.pbxuser
+
+# ============= #
+# IntelliJ      #
+.idea
+
+# ============= #
+# WoM		#
+# ============= #
+Config/Data/*
+Config/Bundles/*
+Config/Reports/Logs/*
+Config/Reports/Results/*
