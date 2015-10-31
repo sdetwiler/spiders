@@ -3,20 +3,27 @@ using System.Collections;
 
 public class Walk : MonoBehaviour {
 	private Vector3 target;
-	public float speed=0.1f;
+	public float speed=0.000001f;
 //	private SphereCollider objCollider;
-	
-	// Use this for initialization
-	void Start () {
-//		Debug.Log ("Walk Start");
+
+	void SetSpeed()
+	{
 		Animation anim = gameObject.GetComponent<Animation>();
+
 		foreach (AnimationState state in anim) {
 			if(state.name.Equals("walk"))
 			{
-//				state.speed = 0.8f;
+//				state.speed = 10.8f;
 			}
-			Debug.Log (state.name);
+//			Debug.Log (state.name);
 		}
+	}
+
+	// Use this for initialization
+	void Start () {
+//		Debug.Log ("Walk Start");
+		SetSpeed ();
+		Animation anim = gameObject.GetComponent<Animation>();
 		anim.Play("walk");
 
 		PickTarget();
@@ -25,19 +32,25 @@ public class Walk : MonoBehaviour {
 	void PickTarget() {
 		float s = 10.0f;
 //		Debug.Log ("PickTarget");
-		target = new Vector3(Random.Range(-s, s), 0.0f, Random.Range(-s, s));
-//		Debug.Log(target);
+		target = new Vector3(Random.Range(-s, s), transform.localPosition.y, Random.Range(-s, s));
+		//		Debug.Log(target);
 	}
 
 	void Update() {
-		float step = speed * Time.deltaTime;
-		transform.position = Vector3.MoveTowards(transform.position, target, step);
 
+
+		float step = Time.deltaTime *0.25f;
+
+		Vector3 newPos = Vector3.MoveTowards(transform.localPosition, target, step);
+		newPos.y = -0.12f;
+		transform.localPosition = newPos;
+
+		//		Debug.Log (transform.position);
 		float rotSpeed = 6.0f;
-		var targetRotation = Quaternion.LookRotation(target - transform.position);
-		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotSpeed * Time.deltaTime);
+		var targetRotation = Quaternion.LookRotation(target - transform.localPosition);
+		transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, rotSpeed * Time.deltaTime);
 
-		if( transform.position == target)
+		if( transform.localPosition == target)
 		{
 			PickTarget();
 		}
@@ -53,6 +66,6 @@ public class Walk : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider collider) {
-//		Debug.Log ("Trigger");
+		Debug.Log ("Trigger");
 	}
 }

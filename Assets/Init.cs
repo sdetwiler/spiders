@@ -12,7 +12,7 @@ public class Init : MonoBehaviour {
 			instance.transform.parent = gameObject.transform;
 			float s = 2.0f;
 			instance.transform.position = new Vector3(Random.Range(-s, s), 0.0f, Random.Range(-s, s));
-			float scale = 0.25f;
+			float scale = 0.15f;
 			instance.transform.localScale = new Vector3(scale,scale,scale);
 		}
 	}

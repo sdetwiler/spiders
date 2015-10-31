@@ -5,20 +5,73 @@ public class InputController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
 	}
 
-	Vector3 at = new Vector3(0,0,0);
+	bool squarePressed = false;
+//	Vector3 at = new Vector3(0,0,0);
 	// https://www.reddit.com/r/Unity3D/comments/1syswe/ps4_controller_map_for_unity/
 
+	bool loaded = false;
 	// Update is called once per frame
 	void Update ()
 	{
 		Camera cam = gameObject.GetComponent<Camera> ();
-		GameObject plane = GameObject.Find ("House");
+		GameObject plane = GameObject.Find ("Root");
+
+
+
+
+
+
+		if(!loaded)
+		{
+			loaded = true;
+
+			SettingsLoader loader = new SettingsLoader();
+			Settings settings = loader.Load();
+			if(settings != null)
+			{
+				cam.fieldOfView = settings.cameraFOV;
+				gameObject.transform.position = settings.getPosition();
+				Quaternion rot = new Quaternion();
+				
+				rot.eulerAngles = settings.getRotation();
+				
+				plane.transform.rotation = rot;
+			}
+			else{
+				
+				Debug.Log ("Loading failed");
+			}
+
+		}
+
+
 
 		if (Input.GetButton ("PS4_PS")) {
 			Application.Quit();
 		}
+
+
+
+		if (Input.GetButton ("PS4_Square")) {
+			if (!squarePressed) {
+				squarePressed = true;
+
+				SettingsLoader loader = new SettingsLoader();
+				Settings settings = new Settings();
+				settings.cameraFOV = cam.fieldOfView;
+				settings.setPosition(gameObject.transform.position);
+				settings.setRotation(plane.transform.rotation.eulerAngles);
+
+				loader.Save(settings);
+			}
+		} else {
+			squarePressed = false;
+		}
+
+
 
 		// Depth of field.
 		float dpadX = Input.GetAxis ("PS4_DPadX");
@@ -35,7 +88,7 @@ public class InputController : MonoBehaviour {
 		// Rot camera.
 		float rightX = Input.GetAxis ("PS4_RightStickX");
 		float rightY = Input.GetAxis ("PS4_RightStickY");
-		Debug.LogFormat ("{0} {1}", rightX, rightY);
+//		Debug.LogFormat ("{0} {1}", rightX, rightY);
 
 		float dz = 0;
 		// L2 pressed
@@ -58,6 +111,11 @@ public class InputController : MonoBehaviour {
 		Vector3 angles = plane.transform.rotation.eulerAngles;
 		angles.x += rightY;
 		angles.z += rightX;
+		// HACK
+		if(angles.x == 90)
+		{
+			angles.x+=1;
+		}
 		newPlaneRot.eulerAngles = angles;
 		plane.transform.rotation = newPlaneRot;
 
