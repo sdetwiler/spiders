@@ -109,8 +109,8 @@ public class InputController : MonoBehaviour {
 
 		Quaternion newPlaneRot = plane.transform.rotation;
 		Vector3 angles = plane.transform.rotation.eulerAngles;
-		angles.x += rightY;
-		angles.z += rightX;
+		angles.x += (rightY*2.0f);
+		angles.z += (rightX*2.0f);
 		// HACK
 		if(angles.x == 90)
 		{
